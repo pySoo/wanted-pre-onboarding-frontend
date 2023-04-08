@@ -1,9 +1,29 @@
+import apiClient from "api/apiClient";
+import { apiUrl } from "api/config";
 import CardContainer from "components/CardContainer";
+import { useLocalStorage } from "hooks/useLocalStorage";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accessToken, setAccessToken] = useLocalStorage("access_token");
+  const navigate = useNavigate();
+  const directToTodo = () => navigate("/todo");
+
+  const postSignIn = () =>
+    apiClient["post"](apiUrl.signIn, { email, password })
+      .then((res: any) => {
+        const token = res.access_token;
+        if (token) {
+          setAccessToken(token);
+          directToTodo();
+        }
+      })
+      .catch((err) => {
+        setAccessToken("");
+      });
 
   const validateForm = () => {
     if (email.includes("@") && password.length >= 8) {
@@ -24,6 +44,7 @@ export default function SignIn() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    postSignIn();
   };
 
   return (
