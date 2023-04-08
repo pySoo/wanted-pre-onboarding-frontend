@@ -2,7 +2,7 @@ import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
 import CardContainer from "components/CardContainer";
 import { useLocalStorage } from "hooks/useLocalStorage";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
@@ -11,6 +11,12 @@ export default function SignIn() {
   const [accessToken, setAccessToken] = useLocalStorage("access_token");
   const navigate = useNavigate();
   const directToTodo = () => navigate("/todo");
+  useEffect(() => {
+    if (accessToken) {
+      console.log(accessToken);
+      directToTodo();
+    }
+  }, [accessToken]);
 
   const postSignIn = () =>
     apiClient["post"](apiUrl.signIn, { email, password })
@@ -18,7 +24,6 @@ export default function SignIn() {
         const token = res.access_token;
         if (token) {
           setAccessToken(token);
-          directToTodo();
         }
       })
       .catch((err) => {

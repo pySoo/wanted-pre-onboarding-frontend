@@ -1,16 +1,24 @@
 import CardContainer from "components/CardContainer";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "hooks/useLocalStorage";
 import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accessToken] = useLocalStorage("access_token");
 
   const navigate = useNavigate();
   const directToTodo = () => navigate("/todo");
+
+  useEffect(() => {
+    if (accessToken) {
+      directToTodo();
+    }
+  }, [accessToken]);
 
   const postSignUp = () =>
     apiClient["post"](apiUrl.signUp, { email, password }).then((res: any) => {
