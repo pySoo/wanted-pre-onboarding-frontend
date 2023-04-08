@@ -1,10 +1,21 @@
 import CardContainer from "components/CardContainer";
 import { ChangeEvent, useState } from "react";
 import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import apiClient from "api/apiClient";
+import { apiUrl } from "api/config";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const directToTodo = () => navigate("/todo");
+
+  const postSignUp = () =>
+    apiClient["post"](apiUrl.signUp, { email, password }).then((res: any) => {
+      directToTodo();
+    });
 
   const validateForm = () => {
     if (email.includes("@") && password.length >= 8) {
@@ -25,6 +36,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    postSignUp();
   };
 
   return (
