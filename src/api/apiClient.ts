@@ -21,5 +21,12 @@ const onErrorResponse = (error: AxiosError | Error): Promise<AxiosError> => {
 };
 
 apiClient.interceptors.response.use(onResponse, onErrorResponse);
+apiClient.interceptors.request.use((req) => {
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    req.headers.authorization = `Bearer ${JSON.parse(token)}`;
+  }
+  return req;
+});
 
 export default apiClient;
