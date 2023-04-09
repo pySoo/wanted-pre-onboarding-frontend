@@ -16,7 +16,6 @@ export default function SignIn() {
   const directToTodo = () => navigate("/todo");
   useEffect(() => {
     if (accessToken) {
-      console.log(accessToken);
       directToTodo();
     }
   }, [accessToken]);
