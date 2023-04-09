@@ -5,10 +5,19 @@ import TodoAddInput from "components/TodoAddInput";
 import TodoItem, { TodoProps } from "components/TodoItem";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TodoList() {
   const [todoList, setTodoList] = useLocalStorage<TodoProps[]>("todo_list", []);
   const [accessToken, setAccessToken] = useLocalStorage("access_token");
+  const navigate = useNavigate();
+  const navigateToSignIn = () => navigate("/signin");
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigateToSignIn();
+    }
+  }, [accessToken]);
 
   const postCreateTodo = (todo: string) =>
     apiClient["post"](apiUrl.todos, { todo }).then((res: any) => {
