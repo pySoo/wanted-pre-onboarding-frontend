@@ -20,6 +20,12 @@ export default function TodoList() {
       setTodoList(res);
     });
 
+  const updateTodo = (item: TodoProps) =>
+    apiClient["put"](`${apiUrl.todos}/${item.id}`, {
+      todo: item.todo,
+      isCompleted: item.isCompleted,
+    }).then((res) => {});
+
   const deleteTodo = (id: number) =>
     apiClient["delete"](`${apiUrl.todos}/${id}`).then((res) => {});
 
@@ -31,6 +37,12 @@ export default function TodoList() {
     postCreateTodo(input);
   };
 
+  const handleUpdate = (item: TodoProps) => {
+    updateTodo(item);
+    setTodoList((prev) =>
+      prev.map((prev) => (prev.id === item.id ? item : prev))
+    );
+  };
   const handleDelete = (id: number) => {
     setTodoList((prev) => prev.filter((todo) => todo.id !== id));
     deleteTodo(id);
@@ -59,6 +71,7 @@ export default function TodoList() {
               <TodoItem
                 key={`${item.id}${index}`}
                 item={item}
+                handleUpdate={handleUpdate}
                 handleDelete={handleDelete}
               />
             ))}
