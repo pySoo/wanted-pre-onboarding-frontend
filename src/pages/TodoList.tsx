@@ -6,6 +6,7 @@ import TodoItem, { TodoProps } from "components/TodoItem";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { GiBinoculars } from "react-icons/gi";
 
 export default function TodoList() {
   const [todoList, setTodoList] = useLocalStorage<TodoProps[]>("todo_list", []);
@@ -75,16 +76,25 @@ export default function TodoList() {
         </div>
         <TodoAddInput handleInput={handleInput} />
         <div className="p-3 w-full h-[400px] overflow-auto">
-          <div className="flex flex-col gap-3">
-            {todoList.map((item, index) => (
-              <TodoItem
-                key={`${item.id}${index}`}
-                item={item}
-                handleUpdate={handleUpdate}
-                handleDelete={handleDelete}
-              />
-            ))}
-          </div>
+          {todoList.length === 0 ? (
+            <div className="h-full flex flex-col justify-center items-center pb-10">
+              <GiBinoculars size="40px" className="text-gray-400" />
+              <span className="text-lg text-gray-400">
+                나만의 TodoList를 만들어 보세요
+              </span>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {todoList.map((item, index) => (
+                <TodoItem
+                  key={`${item.id}${index}`}
+                  item={item}
+                  handleUpdate={handleUpdate}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </Card>
     </div>

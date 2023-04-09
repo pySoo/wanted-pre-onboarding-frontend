@@ -50,7 +50,7 @@ export default function TodoBox({
           type="checkbox"
           checked={item.isCompleted}
           onChange={handleCheckbox}
-          className="w-[20px] h-[20px] mr-2 accent-primary shrink-0"
+          className="w-[20px] h-[20px] mr-2 accent-primary shrink-0 cursor-pointer"
         />
         <div className="flex-1">
           {isUpdate ? (
