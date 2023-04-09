@@ -36,7 +36,7 @@ export default function TodoAddInput({ handleInput }: TodoAddInputProps) {
         data-testid="new-todo-add-button font-semibold"
         className="flex justify-center items-center w-[80px] h-full bg-gray-300"
       >
-        <FaPencilAlt size="20px" />
+        <FaPencilAlt size="20px" className="transition hover:scale-[1.1]" />
       </button>
     </form>
   );

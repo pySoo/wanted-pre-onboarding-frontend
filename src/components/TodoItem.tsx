@@ -80,7 +80,7 @@ export default function TodoBox({
             <TodoButton
               data-testid="cancel-button"
               onClick={() => setIsUpdate(false)}
-              className={`shrink-0 p-1 rounded-md bg-red-400 text-white hover:bg-red-300`}
+              className={`shrink-0 p-1 rounded-md ring-[1px] ring-gray-300 text-gray-600 hover:text-red-500`}
             >
               취소
             </TodoButton>
@@ -96,7 +96,7 @@ export default function TodoBox({
             <TodoButton
               data-testid="delete-button"
               onClick={() => handleDelete(item.id)}
-              className={`shrink-0 p-1 rounded-md bg-red-400 text-white hover:bg-red-300`}
+              className={`transition hover:scale-[1.05] shrink-0 p-1 rounded-md ring-[1px] ring-gray-300 text-gray-600 hover:text-red-500`}
             >
               삭제
             </TodoButton>

@@ -3,7 +3,7 @@ import React from "react";
 export default function TodoButton(props: any) {
   return (
     <button
-      className={`shrink-0 p-1 rounded-md bg-gray-600 text-white hover:bg-gray-400`}
+      className={`transition hover:scale-[1.05] shrink-0 p-1 rounded-md ring-[1px] ring-gray-300 text-gray-600 hover:text-primary`}
       {...props}
     >
       {props.children}
