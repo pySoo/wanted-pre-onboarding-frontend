@@ -20,12 +20,20 @@ export default function TodoList() {
       setTodoList(res);
     });
 
+  const deleteTodo = (id: number) =>
+    apiClient["delete"](`${apiUrl.todos}/${id}`).then((res) => {});
+
   useEffect(() => {
     getTodos();
   }, []);
 
   const handleInput = (input: string) => {
     postCreateTodo(input);
+  };
+
+  const handleDelete = (id: number) => {
+    setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+    deleteTodo(id);
   };
 
   const handleLogout = () => {
@@ -48,7 +56,11 @@ export default function TodoList() {
         <div className="p-3 w-full h-[400px] overflow-auto">
           <div className="flex flex-col gap-3">
             {todoList.map((item, index) => (
-              <TodoItem key={`${item.id}${index}`} item={item} />
+              <TodoItem
+                key={`${item.id}${index}`}
+                item={item}
+                handleDelete={handleDelete}
+              />
             ))}
           </div>
         </div>
