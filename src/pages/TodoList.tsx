@@ -1,6 +1,7 @@
 import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
 import Card from "components/Card";
+import TodoAddInput from "components/TodoAddInput";
 import TodoItem, { TodoProps } from "components/TodoItem";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { useEffect } from "react";
@@ -8,6 +9,11 @@ import { useEffect } from "react";
 export default function TodoList() {
   const [todoList, setTodoList] = useLocalStorage<TodoProps[]>("todo_list", []);
   const [accessToken, setAccessToken] = useLocalStorage("access_token");
+
+  const postCreateTodo = (todo: string) =>
+    apiClient["post"](apiUrl.todos, { todo }).then((res: any) => {
+      setTodoList((prev) => [...prev, res]);
+    });
 
   const getTodos = () =>
     apiClient["get"](apiUrl.todos).then((res: any) => {
@@ -17,6 +23,10 @@ export default function TodoList() {
   useEffect(() => {
     getTodos();
   }, []);
+
+  const handleInput = (input: string) => {
+    postCreateTodo(input);
+  };
 
   const handleLogout = () => {
     setAccessToken("");
@@ -34,6 +44,7 @@ export default function TodoList() {
         <div className="w-full bg-primary text-white text-center py-[9px]">
           <span className="font-bold text-[28px]">TodoList</span>
         </div>
+        <TodoAddInput handleInput={handleInput} />
         <div className="p-3 w-full h-[400px] overflow-auto">
           <div className="flex flex-col gap-3">
             {todoList.map((item, index) => (
