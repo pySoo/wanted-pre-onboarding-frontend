@@ -3,7 +3,7 @@ import { apiUrl } from "api/config";
 import CardContainer from "components/CardContainer";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { path } from "routes/path";
 
@@ -99,9 +99,9 @@ export default function SignIn() {
         </button>
         <div className="flex items-center text-md">
           <span>처음이에요</span>
-          <a className="ml-2 underline" href={path.signup}>
+          <Link to={path.signup} className="ml-2 underline">
             회원가입
-          </a>
+          </Link>
         </div>
       </form>
     </CardContainer>

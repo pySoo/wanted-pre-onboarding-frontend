@@ -1,7 +1,7 @@
 import CardContainer from "components/CardContainer";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
@@ -94,9 +94,9 @@ export default function SignUp() {
         </button>
         <div className="flex items-center text-md">
           <span>계정이 있어요</span>
-          <a className="ml-2 underline" href={path.signin}>
+          <Link to={path.signin} className="ml-2 underline">
             로그인
-          </a>
+          </Link>
         </div>
       </form>
     </CardContainer>
