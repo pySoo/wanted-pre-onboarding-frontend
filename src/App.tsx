@@ -4,8 +4,13 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { path } from "routes/path";
 import TodoList from "pages/TodoList";
+import NotFound from "pages/NotFound";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <NotFound />,
+  },
   {
     path: path.signup,
     element: <SignUp />,
