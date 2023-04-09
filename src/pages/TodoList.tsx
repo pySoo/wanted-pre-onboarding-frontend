@@ -33,10 +33,10 @@ export default function TodoList() {
     apiClient["put"](`${apiUrl.todos}/${item.id}`, {
       todo: item.todo,
       isCompleted: item.isCompleted,
-    }).then((res) => {});
+    });
 
   const deleteTodo = (id: number) =>
-    apiClient["delete"](`${apiUrl.todos}/${id}`).then((res) => {});
+    apiClient["delete"](`${apiUrl.todos}/${id}`);
 
   useEffect(() => {
     getTodos();

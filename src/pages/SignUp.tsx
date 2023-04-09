@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
+import { toast } from "react-toastify";
+import { path } from "routes/path";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -12,7 +14,8 @@ export default function SignUp() {
   const [accessToken] = useLocalStorage("access_token");
 
   const navigate = useNavigate();
-  const directToTodo = () => navigate("/todo");
+  const directToSignIn = () => navigate(path.signin);
+  const directToTodo = () => navigate(path.todo);
 
   useEffect(() => {
     if (accessToken) {
@@ -21,9 +24,21 @@ export default function SignUp() {
   }, [accessToken]);
 
   const postSignUp = () =>
-    apiClient["post"](apiUrl.signUp, { email, password }).then((res: any) => {
-      directToTodo();
-    });
+    apiClient["post"](apiUrl.signUp, { email, password })
+      .then(() => {
+        toast.success("가입 되었습니다.");
+        directToSignIn();
+      })
+      .catch((err) => {
+        switch (err.statusCode) {
+          case 400:
+            toast.error(err.message);
+            break;
+          default:
+            toast.error("잠시 후 다시 시도해주세요.");
+            break;
+        }
+      });
 
   const validateForm = () => {
     if (email.includes("@") && password.length >= 8) {
@@ -79,7 +94,7 @@ export default function SignUp() {
         </button>
         <div className="flex items-center text-md">
           <span>계정이 있어요</span>
-          <a className="ml-2 underline" href={"/signin"}>
+          <a className="ml-2 underline" href={path.signin}>
             로그인
           </a>
         </div>

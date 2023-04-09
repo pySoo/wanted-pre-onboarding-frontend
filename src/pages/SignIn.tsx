@@ -4,11 +4,14 @@ import CardContainer from "components/CardContainer";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { path } from "routes/path";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useLocalStorage("access_token");
+
   const navigate = useNavigate();
   const directToTodo = () => navigate("/todo");
   useEffect(() => {
@@ -23,10 +26,22 @@ export default function SignIn() {
       .then((res: any) => {
         const token = res.access_token;
         if (token) {
+          toast.success("환영합니다!");
           setAccessToken(token);
         }
       })
       .catch((err) => {
+        switch (err.statusCode) {
+          case 401:
+            toast.error("비밀번호를 다시 확인해 주세요.");
+            break;
+          case 404:
+            toast.error(err.message);
+            break;
+          default:
+            toast.error("로그인에 실패했습니다.");
+            break;
+        }
         setAccessToken("");
       });
 
@@ -85,7 +100,7 @@ export default function SignIn() {
         </button>
         <div className="flex items-center text-md">
           <span>처음이에요</span>
-          <a className="ml-2 underline" href={"/signin"}>
+          <a className="ml-2 underline" href={path.signup}>
             회원가입
           </a>
         </div>
