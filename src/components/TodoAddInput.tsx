@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
+import { FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface TodoAddInputProps {
   handleInput: (input: string) => void;
@@ -11,6 +13,7 @@ export default function TodoAddInput({ handleInput }: TodoAddInputProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (input.length === 0) {
+      toast.warn("내용을 입력해 주세요.");
       return;
     }
     handleInput(input);
@@ -31,9 +34,9 @@ export default function TodoAddInput({ handleInput }: TodoAddInputProps) {
       />
       <button
         data-testid="new-todo-add-button font-semibold"
-        className="w-[80px] h-full bg-darkGray"
+        className="flex justify-center items-center w-[80px] h-full bg-gray-300"
       >
-        추가
+        <FaPencilAlt size="20px" />
       </button>
     </form>
   );

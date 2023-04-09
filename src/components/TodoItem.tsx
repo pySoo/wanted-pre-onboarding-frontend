@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import TodoButton from "./TodoButton";
 
 interface TodoBoxProps {
@@ -33,6 +34,10 @@ export default function TodoBox({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (todo.length === 0) {
+      toast.warn("내용을 입력해 주세요.");
+      return;
+    }
     const changedTodo = { ...item, todo };
     handleUpdate(changedTodo);
     setIsUpdate(false);
