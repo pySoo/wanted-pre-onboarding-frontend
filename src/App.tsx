@@ -6,6 +6,7 @@ import { path } from "routes/path";
 import TodoList from "pages/TodoList";
 import NotFound from "pages/NotFound";
 import Main from "pages/Main";
+import Welcome from "pages/Welcome";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <Main />,
     errorElement: <NotFound />,
     children: [
+      { index: true, element: <Welcome /> },
       { path: path.signup, element: <SignUp /> },
       { path: path.signin, element: <SignIn /> },
       { path: path.todo, element: <TodoList /> },
