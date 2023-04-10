@@ -43,6 +43,11 @@ export default function TodoBox({
     setIsUpdate(false);
   };
 
+  const handleCancle = () => {
+    setTodo(item.todo);
+    setIsUpdate(false);
+  };
+
   return (
     <li key={`${item.id}`} className="flex items-center justify-between gap-3">
       <label className="w-full flex items-center">
@@ -79,7 +84,7 @@ export default function TodoBox({
             </TodoButton>
             <TodoButton
               data-testid="cancel-button"
-              onClick={() => setIsUpdate(false)}
+              onClick={handleCancle}
               className={`shrink-0 p-1 rounded-md ring-[1px] ring-gray-300 text-gray-600 hover:text-red-500`}
             >
               취소
