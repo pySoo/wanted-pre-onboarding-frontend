@@ -1,9 +1,9 @@
 # 원티드 프리온보딩 프론트엔드 인턴쉽 - 선발 과제
 
 <div align='center'>
-  <picture>
+  <a href="#">
     <img width="220" alt="pre_fe" src="https://user-images.githubusercontent.com/55135881/230887130-877b55c0-6f9e-46f4-85ac-bf57e33e6514.png">
-  </picture>
+  </a>
 </div>
 
 ## Deploy
