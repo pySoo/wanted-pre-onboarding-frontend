@@ -1,6 +1,7 @@
 import apiClient from "api/apiClient";
 import { apiUrl } from "api/config";
 import CardContainer from "components/CardContainer";
+import SignInput, { InputProps } from "components/SignInput";
 import { useLocalStorage } from "hooks/useLocalStorage";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -66,30 +67,36 @@ export default function SignIn() {
     postSignIn();
   };
 
+  const inputList: InputProps[] = [
+    {
+      testId: "email-input",
+      value: email,
+      type: "email",
+      placeholder: "이메일",
+      onChange: onChangeEmail,
+      info: "이메일에는 @가 포함되어야 합니다.",
+    },
+    {
+      testId: "password-input",
+      value: password,
+      type: "password",
+      placeholder: "비밀번호",
+      onChange: onChangePassword,
+      info: "비밀번호는 8자 이상이어야 합니다.",
+    },
+  ];
+
   return (
     <CardContainer bgColor="primary">
       <form
-        className="flex flex-col items-center gap-10 p-10 pb-8"
+        className="flex flex-col gap-5 p-10 pb-8 items-center"
         onSubmit={handleSubmit}
         autoComplete="auto"
       >
         <h1 className="font-bold text-[30px] text-gray-600">로그인</h1>
-        <input
-          data-testid="email-input"
-          value={email}
-          type="email"
-          placeholder="이메일"
-          className="w-full border-b-2 focus:border-b-primary focus:outline-none "
-          onChange={onChangeEmail}
-        />
-        <input
-          value={password}
-          data-testid="password-input"
-          type="password"
-          placeholder="비밀번호"
-          className="w-full border-b-2 focus:border-b-primary focus:outline-none"
-          onChange={onChangePassword}
-        />
+        {inputList.map((input) => (
+          <SignInput input={input} />
+        ))}
         <button
           data-testid="signin-button"
           className="w-full bg-primary text-white rounded-lg p-3 mt-2 font-semibold disabled:opacity-50"
