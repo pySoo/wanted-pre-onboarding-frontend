@@ -10,14 +10,14 @@ export default function NotFound() {
 
   return (
     <CardContainer bgColor="primary">
-      <Card css="p-10 flex flex-col items-center">
+      <Card css="p-10 flex flex-col items-center whitespace-pre-line text-center">
         <p className="text-xl font-semibold">유효하지 않은 페이지입니다.</p>
-        <p
-          className="text-primary text-lg font-semibold pt-4 cursor-pointer"
+        <button
+          className="text-lg font-semibold mt-5 bg-primary text-white rounded-xl p-2 hover:bg-blue-400"
           onClick={directToSignIn}
         >
-          로그인 페이지로 이동하기
-        </p>
+          {`로그인 페이지로`}
+        </button>
       </Card>
     </CardContainer>
   );
